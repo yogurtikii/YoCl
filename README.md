@@ -4,3 +4,4 @@ Create directory's
 Remove files
 more soon :)
 i get info for this programm from habr.com and others sites :)
+i copy some code from this sites)
