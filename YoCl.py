@@ -2,6 +2,7 @@ import os
 import customtkinter
 import time
 def sort():
+    global stl
     files=os.listdir()
     temp=""
     extistons=[]
@@ -17,110 +18,102 @@ def sort():
     for i in extistons:
         if i != "":
             os.makedirs(i, exist_ok=True)
-        else:
-            os.makedirs("Nothing", exist_ok=True)
     for i in files:
         os.replace(i, os.path.join(os.path.splitext(i)[1], i))
         i1+=1
         if i1*w != 1:
             if i1 > 1:
-                label.destroy()
-            label = customtkinter.CTkLabel(root, text = "Completed for..." + str(i1*w).split(".")[1]+"%", text_color="#78f960")
-            label.place(relx=0.7, rely=0.22, anchor="e")
+                stl.destroy()
+            stl = customtkinter.CTkLabel(mainf, text = "Completed for..." + str(i1*w).split(".")[1]+"%", text_color="#78f960")
+            stl.pack(anchor="w", pady=10, padx=20)
         else:
-            label.destroy()
-            label = customtkinter.CTkLabel(root, text = "Completed! \n Thanks for using YoCl!", text_color="#78f960")
-            label.place(relx=0.7, rely=0.22, anchor="e")
+            stl.destroy()
+            stl = customtkinter.CTkLabel(mainf, text = "Completed! \n Thanks for using YoCl!", text_color="#78f960")
+            stl.pack(anchor="w", pady=10, padx=20)
 def crtdir():
     content = crttext.get()
+    global stl
     try:
-        crtl=customtkinter.CTkLabel(root, text = "")
-        if crtl != "":
-            crtl.destroy()
+        stl.destroy()
         os.mkdir(content)
-        crtl = customtkinter.CTkLabel(root, text = f"Directory {content} was created! \n Thanks for using YoCl!", text_color="#78f960")
-        crtl.place(relx=0.7, rely=0.30, anchor="e")
+        stl = customtkinter.CTkLabel(mainf, text = f"Directory {content} was created! \n Thanks for using YoCl!", text_color="#78f960")
+        stl.pack(anchor="w", pady=10, padx=20)
     except FileExistsError:
-        crtl=customtkinter.CTkLabel(root, text = "")
-        if crtl != "":
-            crtl.destroy()
-        crtl = customtkinter.CTkLabel(root, text = "File arleady exists!", text_color="#ff5858")
-        crtl.place(relx=0.7, rely=0.30, anchor="e")
+        stl.destroy()
+        stl = customtkinter.CTkLabel(mainf, text = "File arleady exists!", text_color="#ff5858")
+        stl.pack(anchor="w", pady=10, padx=20)
     except FileNotFoundError:
-        crtl=customtkinter.CTkLabel(root, text = "")
-        if crtl != "":
-            crtl.destroy()
-        crtl = customtkinter.CTkLabel(root, text = "Path not found!", text_color="#ff5858")
-        crtl.place(relx=0.7, rely=0.30, anchor="e")
+        stl.destroy()
+        stl = customtkinter.CTkLabel(mainf, text = "Path not found!", text_color="#ff5858")
+        stl.pack(anchor="w", pady=10, padx=20)
 def remfile():
     content = remtext.get()
+    global stl
     try:
         os.remove(content)
-        reml=customtkinter.CTkLabel(root, text = "")
-        if reml != "":
-            reml.destroy()
-        reml = customtkinter.CTkLabel(root, text = f"File {content} was removed! \n Thanks for using YoCl!", text_color="#78f960")
-        reml.place(relx=0.7, rely=0.38, anchor="e")
+        stl.destroy()
+        stl = customtkinter.CTkLabel(mainf, text = f"File {content} was removed! \n Thanks for using YoCl!", text_color="#78f960")
+        stl.pack(anchor="w", pady=10, padx=20)
     except  FileNotFoundError:
-        reml=customtkinter.CTkLabel(root, text = "")
-        if reml != "":
-            reml.destroy()
-        reml = customtkinter.CTkLabel(root, text = "File not found!", text_color="#ff5858")
-        reml.place(relx=0.7, rely=0.38, anchor="e")
+        stl.destroy()
+        stl = customtkinter.CTkLabel(mainf, text = "File not found!", text_color="#ff5858")
+        stl.pack(anchor="w", pady=10, padx=20)
 def goto():
+    global cur, stl
     target_path = gototext.get()
     try:
-        cur = customtkinter.CTkLabel(root, text = f"Curent working directory: {os.getcwd()}", text_color="#888888" )
+        cur = customtkinter.CTkLabel(mainf, text = f"Curent working directory: {os.getcwd()}", text_color="#888888" )
         os.chdir(target_path)
-        if cur != "":
-            cur.destroy()
-        cur = customtkinter.CTkLabel(root, text = f"Curent working directory: {os.getcwd()}", text_color="#888888" )
-        cur.place(anchor="center", rely=0.9, relx=0.5)
-        gotol = customtkinker.CTkLabel(root, text = f"We go to {target_path} successful", text_color="#78f960")
+        cur.destroy()
+        cur = customtkinter.CTkLabel(mainf, text = f"Curent working directory: {os.getcwd()}", text_color="#888888" )
+        cur.pack(anchor="w", pady=10, padx=20)
+        stl.destroy()
+        stl = customtkinker.CTkLabel(mainf, text = f"We go to {target_path} successful", text_color="#78f960")
+        stl.pack(anchor="w", pady=10, padx=20)
     except  OSError:
-        gotol=customtkinter.CTkLabel(root, text = "")
-        if gotol != "":
-            gotol.destroy()
-        gotol = customtkinter.CTkLabel(root, text = "Directory not found!", text_color="#ff5858")
-        gotol.place(relx=0.7, rely=0.46, anchor="e")
+        stl.destroy()
+        stl = customtkinter.CTkLabel(mainf, text = "Directory not found!", text_color="#ff5858")
+        stl.pack(anchor="w", pady=10, padx=20)
 root=customtkinter.CTk()
 customtkinter.set_default_color_theme("green")
-root.title("YoCl 1.2.0")
+root.title("YoCl 1.3.1")
 root.geometry('750x500')
 root.configure(fg_color="#1a1a1a")
     
-wel = customtkinter.CTkLabel(root, text = "Hi, its YoCl, curent version-1.2.0, it's can be bugs", text_color="#57A3F2", font=customtkinter.CTkFont(size=24, weight="bold"))
-wel.pack()
+wel = customtkinter.CTkLabel(root, text = "Hi, its YoCl, curent version-1.3.1, it's can be bugs", text_color="#57A3F2", font=customtkinter.CTkFont(size=24, weight="bold"))
+wel.pack(pady=20)
 
-cur = customtkinter.CTkLabel(root, text = f"Curent working directory: {os.getcwd()}", text_color="#888888" )
-cur.place(anchor="center", rely=0.9, relx=0.5)
+mainf = customtkinter.CTkFrame(root, fg_color="#242424", corner_radius=15)
+mainf.pack(pady=20, padx=20, fill="both", expand=True)
 
-sortb = customtkinter.CTkButton(root, text="Click me to sort your files", command=sort, fg_color="#f9de60")
-sortb.pack(anchor="w")
+cur = customtkinter.CTkLabel(mainf, text = f"Curent working directory: {os.getcwd()}", text_color="#888888" )
+cur.pack(anchor="w", pady=20, padx=20)
 
-n = customtkinter.CTkLabel(root, text = "", )
-n.pack()
+sortb = customtkinter.CTkButton(mainf, text="Click me to sort your files", command=sort, fg_color="#f9de60", width=700, text_color="#1a1a1a", font=customtkinter.CTkFont(size=24))
+sortb.pack(anchor="w", pady=20, padx=20)
 
-crtb = customtkinter.CTkButton(root, text="Click me to create new directory", command=crtdir, fg_color="#586dff")
-crtb.pack(anchor="w", side="top")
-crtl = customtkinter.CTkLabel(root, text = "Directory to create name:", text_color="#888888")
-crtl.pack(anchor="w")
-crttext = customtkinter.CTkEntry(root, placeholder_text="Name")
-crttext.place(relx=0.0, rely=0.32, anchor="w")
+crtf = customtkinter.CTkFrame(mainf, width=750, height=100,fg_color="#242424", corner_radius=15)
+crtf.pack(pady=20, padx=20, fill="both")
+crtb = customtkinter.CTkButton(crtf, text="Click me to create new directory", command=crtdir, fg_color="#586dff", corner_radius=15, text_color="#1a1a1a")
+crtb.pack(anchor="s",side="left")
+crttext = customtkinter.CTkEntry(crtf, placeholder_text="Directory to create name:", width=600, fg_color="#555555", corner_radius=15)
+crttext.pack(anchor="w",side="left", padx=10)
 
+remf = customtkinter.CTkFrame(mainf, width=750, height=100,fg_color="#242424", corner_radius=15)
+remf.pack(pady=20, padx=20, fill="both")
+remb = customtkinter.CTkButton(remf, text="Click me to remove file", command=remfile, fg_color="#ff5858", corner_radius=15, text_color="#1a1a1a")
+remb.pack(anchor="s",side="left")
+remtext = customtkinter.CTkEntry(remf, placeholder_text="File to remove name:", width=600, fg_color="#555555", corner_radius=15)
+remtext.pack(anchor="s",side="left", padx=10)
 
-remb = customtkinter.CTkButton(root, text="Click me to remove file", command=remfile, fg_color="#ff5858")
-remb.place(relx=0.0, rely=0.44, anchor="w")
-reml = customtkinter.CTkLabel(root, text = "File to remove name:", text_color="#888888")
-reml.place(relx=0.0, rely=0.50, anchor="w")
-remtext = customtkinter.CTkEntry(root, placeholder_text="Name")
-remtext.place(relx=0.0, rely=0.55, anchor="w")
+gotof = customtkinter.CTkFrame(mainf, width=750, height=100,fg_color="#242424", corner_radius=15)
+gotof.pack(pady=20, padx=20, fill="both")
+gotob = customtkinter.CTkButton(gotof, text="Click me to go to directory", command=goto, text_color="#1a1a1a", corner_radius=15)
+gotob.pack(anchor="s",side="left")
+gototext = customtkinter.CTkEntry(gotof, placeholder_text="Path to directory:", width=600, fg_color="#555555", corner_radius=15)
+gototext.pack(anchor="s",side="left", padx=10)
 
-gotob = customtkinter.CTkButton(root, text="Click me to go to directory", command=goto)
-gotob.place(relx=0.0, rely=0.67, anchor="w")
-gotol = customtkinter.CTkLabel(root, text = "Path to directory:", text_color="#888888")
-gotol.place(relx=0.0, rely=0.73, anchor="w")
-gototext = customtkinter.CTkEntry(root, placeholder_text="Path")
-gototext.place(relx=0.0, rely=0.78, anchor="w")
+stl = customtkinter.CTkLabel(mainf, text = "...", text_color="#888888" )
+stl.pack(anchor="w", pady=10, padx=20)
 
 root.mainloop()
