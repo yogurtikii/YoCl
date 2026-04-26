@@ -7,3 +7,4 @@ more soon :)
 i get info for this programm from habr.com and others sites :)
 i copy some code from this sites)
 do not move the exe file to another folder outside the program, move it ONLY with the go to function.
+if programm has been stuked when you pressed "Set language" button, just wait
