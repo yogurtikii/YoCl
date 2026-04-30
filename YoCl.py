@@ -147,3 +147,5 @@ stl = customtkinter.CTkLabel(mainf, text = "...", text_color="#888888" )
 stl.pack(anchor="w", pady=5, padx=20)
 
 root.mainloop()
+
+# Yaryk}{
